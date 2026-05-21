@@ -23,6 +23,7 @@ class Config:
             "path_replace": True,
             "download_workers": 10,
             "convert_workers": 5,
+            "convert_timeout": 600,
             "pdf_scale": 2.0
         }
         self.config_path=config_path
@@ -60,6 +61,7 @@ class Config:
         self.path_replace = config_data["path_replace"]
         self.download_workers = config_data["download_workers"]
         self.convert_workers = config_data["convert_workers"]
+        self.convert_timeout = config_data["convert_timeout"]
         self.pdf_scale = config_data["pdf_scale"] if "pdf_scale" in config_data else 2.0
 
     def gen(self):        
@@ -90,6 +92,7 @@ class Config:
             "path_replace": self.path_replace,
             "download_workers": self.download_workers,
             "convert_workers": self.convert_workers,
+            "convert_timeout": self.convert_timeout,
             "pdf_scale": self.pdf_scale
         }
         with open(self.config_path, 'w') as f:

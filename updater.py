@@ -93,7 +93,7 @@ class Update:
             os.environ["JAVA_HOME"] = os.path.dirname(bundled_bin)
             try:
                 if subprocess.run(['java', '-version'], capture_output=True, timeout=15).returncode == 0:
-                    print(f"使用嵌入的 Java 运行时: {bundled_java}")
+                    # print(f"使用嵌入的 Java 运行时: {bundled_java}")
                     return True
             except (FileNotFoundError, subprocess.TimeoutExpired):
                 pass

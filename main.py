@@ -298,7 +298,7 @@ class converter:
                 ["java", "-Xmx512m", "-Xms64m", "-jar", "ffdec/ffdec.jar", "-format", "frame:svg", "-select", "1", "-export", "frame", dirpath, f"{cfg2.swf_path}{i}"],
                 capture_output=True,
                 text=True,
-                timeout=600,
+                timeout=cfg2.convert_timeout,
             )
             log = run.stdout
             if run.returncode != 0:
@@ -329,7 +329,7 @@ class converter:
             print("Can't convert this page! Skipping...")
             logw("SVG converting error: " + log)
         except subprocess.TimeoutExpired:
-            print(f"Worker {i} ffdec 转换超时（>10 分钟）已强制结束。")
+            print(f"Worker {i} ffdec 转换超时（>{cfg2.convert_timeout}s）已强制结束。")
             logw(f"SVG converting timeout in worker {i}")
 
     def swf2pdf(self, i: int):
@@ -343,7 +343,7 @@ class converter:
                 ["java", "-Xmx512m", "-Xms64m", "-jar", "ffdec/ffdec.jar", "-format", "frame:pdf", "-zoom", str(cfg2.pdf_scale), "-select", "1", "-export", "frame", dirpath, f"{cfg2.swf_path}{i}"],
                 capture_output=True,
                 text=True,
-                timeout=600,
+                timeout=cfg2.convert_timeout,
             )
             log = run.stdout
             if run.returncode != 0:
@@ -375,7 +375,7 @@ class converter:
             print("Can't convert this page! Skipping...")
             logw("PDF converting error: " + log)
         except subprocess.TimeoutExpired:
-            print(f"Worker {i} ffdec 转换超时（>10 分钟）已强制结束。")
+            print(f"Worker {i} ffdec 转换超时（>{cfg2.convert_timeout}s）已强制结束。")
             logw(f"PDF converting timeout in worker {i}")
 
     def svg2pdf(self, i: int):
